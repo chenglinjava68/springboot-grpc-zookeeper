@@ -33,8 +33,8 @@ import java.util.concurrent.TimeUnit;
 public class GrpcHwClientPoolFactory extends GrpcBaseClientPoolFactory<HelloWorldClient> {
     private static final Logger LOGGER = LoggerFactory.getLogger(GrpcHwClientPoolFactory.class);
 
-    protected Class interfaceClazz;
-    protected ILoadBalanceStrategy loadBalanceStrategy;
+    private Class interfaceClazz;
+    private ILoadBalanceStrategy loadBalanceStrategy;
 
     public GrpcHwClientPoolFactory(String serviceName, Class interfaceClazz, String zkAddress, String group, String version,
                                   ILoadBalanceStrategy loadBalanceStrategy){
@@ -70,6 +70,14 @@ public class GrpcHwClientPoolFactory extends GrpcBaseClientPoolFactory<HelloWorl
     @Override
     public void destroyObject(PooledObject<HelloWorldClient> p) throws Exception {
         p.getObject().shutdown();
+    }
+
+    @Override
+    public boolean validateObject(PooledObject<HelloWorldClient> p) {
+        if (p != null && p.getObject() != null && p.getObject().getChannel().getState(true) != ConnectivityState.SHUTDOWN) {
+            return true;
+        }
+        return false;
     }
 
 }

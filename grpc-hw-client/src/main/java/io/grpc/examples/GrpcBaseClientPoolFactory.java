@@ -41,7 +41,7 @@ public abstract class GrpcBaseClientPoolFactory<T> implements PooledObjectFactor
     /**
      * 所有服务的list表,冗余PROVIDER_CONN_CONCURRENT_MAP,便于获取连接时,直接获取
      */
-    protected CopyOnWriteArrayList<InvokeConn> PROVIDER_CONN_LIST = new CopyOnWriteArrayList<InvokeConn>();
+    protected final CopyOnWriteArrayList<InvokeConn> PROVIDER_CONN_LIST = new CopyOnWriteArrayList<InvokeConn>();
 
     public GrpcBaseClientPoolFactory(){}
 
@@ -60,14 +60,6 @@ public abstract class GrpcBaseClientPoolFactory<T> implements PooledObjectFactor
         }catch (Throwable t) {
             LOGGER.error("GrpcBaseClientPoolFactory initZkConsumer error:{}", t.getMessage() ,t);
         }
-    }
-
-    @Override
-    public boolean validateObject(PooledObject<T> p) {
-        if (p != null && p.getObject() != null) {
-            return true;
-        }
-        return false;
     }
 
     @Override

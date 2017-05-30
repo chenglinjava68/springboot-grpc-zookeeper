@@ -25,8 +25,8 @@ import java.util.logging.Logger;
 public class HelloWorldClient {
     private static final Logger logger = Logger.getLogger(HelloWorldClient.class.getName());
 
-    private final ManagedChannel channel;
-    private final HelloWorldServiceGrpc.HelloWorldServiceBlockingStub blockingStub;
+    private ManagedChannel channel;
+    private HelloWorldServiceGrpc.HelloWorldServiceBlockingStub blockingStub;
 
     public HelloWorldClient(ManagedChannel channel) throws Exception {
         this.channel = channel;
@@ -53,6 +53,14 @@ public class HelloWorldClient {
             return;
         }
         logger.info("Greeting: " + response.getMessage());
+    }
+
+    public ManagedChannel getChannel() {
+        return channel;
+    }
+
+    public HelloWorldServiceGrpc.HelloWorldServiceBlockingStub getBlockingStub() {
+        return blockingStub;
     }
 
 }
