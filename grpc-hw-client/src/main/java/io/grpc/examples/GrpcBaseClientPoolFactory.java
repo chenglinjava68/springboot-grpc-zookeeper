@@ -63,14 +63,6 @@ public abstract class GrpcBaseClientPoolFactory<T> implements PooledObjectFactor
     }
 
     @Override
-    public boolean validateObject(PooledObject<T> p) {
-        if (p != null && p.getObject() != null) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public void activateObject(PooledObject<T> p) throws Exception {
     }
 

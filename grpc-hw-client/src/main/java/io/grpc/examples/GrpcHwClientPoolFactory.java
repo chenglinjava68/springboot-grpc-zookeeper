@@ -72,4 +72,12 @@ public class GrpcHwClientPoolFactory extends GrpcBaseClientPoolFactory<HelloWorl
         p.getObject().shutdown();
     }
 
+    @Override
+    public boolean validateObject(PooledObject<HelloWorldClient> p) {
+        if (p != null && p.getObject() != null) {
+            return true;
+        }
+        return false;
+    }
+
 }
