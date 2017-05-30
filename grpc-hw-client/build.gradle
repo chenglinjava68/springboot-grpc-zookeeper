@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+    compile 'org.apache.commons:commons-pool2:2.4.2'
     compile 'com.gin.zookeeper:gin:1.0.0-SNAPSHOT'
 
     compile("com.alibaba:fastjson:1.2.20")
