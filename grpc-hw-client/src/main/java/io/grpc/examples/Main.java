@@ -30,7 +30,7 @@ public class Main {
         poolConfig.setBlockWhenExhausted(true); // 连接耗尽时是否阻塞,默认为true
 
         /** 连接池创建 */
-        GenericObjectPool<HelloWorldClient> genericObjectPool = new GenericObjectPool<HelloWorldClient>(new GrpcClientPoolFactory("grpc", HelloWorldServiceGrpc.HelloWorldServiceImplBase.class,
+        GenericObjectPool<HelloWorldClient> genericObjectPool = new GenericObjectPool<HelloWorldClient>(new GrpcHwClientPoolFactory("grpc", HelloWorldServiceGrpc.HelloWorldServiceImplBase.class,
                 "127.0.0.1", "daily", "1.0.0", new RandomLoadBalanceStrategy()), poolConfig);
         logger.info("init genericObjectPool cost : "+(System.currentTimeMillis() - st));
 
@@ -45,7 +45,7 @@ public class Main {
         }
 
         st = System.currentTimeMillis();
-        int i = 1;
+        int i = 1000;
         while (i > 0) {
             String user = "world";
             if (args.length > 0) {
